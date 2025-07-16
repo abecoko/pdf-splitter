@@ -74,6 +74,7 @@ export default function App() {
       formData.append('file', selectedFile);
       formData.append('page_ranges', pageRanges);
 
+      const apiUrl = import.meta.env.VITE_API_URL || '/api';
       const xhr = new XMLHttpRequest();
 
       // Handle progress
@@ -145,7 +146,7 @@ export default function App() {
       // Configure and send request
       xhr.responseType = 'blob';
       xhr.timeout = 300000; // 5 minutes timeout
-      xhr.open('POST', '/api/split');
+      xhr.open('POST', `${apiUrl}/split`);
       xhr.send(formData);
 
     } catch (err) {

@@ -25,7 +25,14 @@ app = FastAPI(
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],  # Vite dev server
+    allow_origins=[
+        "http://localhost:3000", 
+        "http://localhost:5173",  # Vite dev server
+        "https://pdf-splitter-6vd6nl7dv-abecos-projects.vercel.app",  # Vercel deployment
+        "https://pdf-splitter-dno84nfzy-abecos-projects.vercel.app",  # Vercel deployment
+        "https://*.vercel.app",  # All Vercel deployments
+        "https://pdf-splitter.vercel.app"  # Custom domain if set
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -144,10 +151,12 @@ async def validation_exception_handler(request: Request, exc):
 
 
 if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 8000))
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
-        port=8000,
-        reload=True,
+        port=port,
+        reload=False,
         timeout_keep_alive=180
     )

@@ -2,20 +2,7 @@
   "version": 2,
   "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/dist",
-  "builds": [
-    {
-      "src": "backend/main.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "50mb"
-      }
-    }
-  ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/backend/main.py"
-    },
     {
       "src": "/assets/(.*)",
       "dest": "/assets/$1"
@@ -24,10 +11,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "PYTHONPATH": "/var/task/backend",
-    "MAX_FILE_SIZE": "136314880",
-    "TIMEOUT_KEEP_ALIVE": "180"
-  }
+  ]
 }
