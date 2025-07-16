@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Splitter - Deploy Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                🔪 PDF Splitter Deployment
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-300">
+                Deploy your PDF splitter application in minutes
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <!-- Backend Deployment -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                    1️⃣ Deploy Backend
+                </h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Choose a platform to deploy the FastAPI backend:
+                </p>
+                
+                <div class="space-y-3">
+                    <a href="https://render.com/deploy?repo=https://github.com/abecoko/pdf-splitter" 
+                       target="_blank"
+                       class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors text-center">
+                        Deploy to Render (Free)
+                    </a>
+                    
+                    <a href="https://railway.app/new/template/2fxKPE" 
+                       target="_blank"
+                       class="block w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-4 rounded-lg transition-colors text-center">
+                        Deploy to Railway
+                    </a>
+                    
+                    <a href="https://heroku.com/deploy?template=https://github.com/abecoko/pdf-splitter" 
+                       target="_blank"
+                       class="block w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition-colors text-center">
+                        Deploy to Heroku
+                    </a>
+                </div>
+                
+                <div class="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+                    <p class="text-sm text-yellow-800 dark:text-yellow-200">
+                        💡 After deployment, copy your backend URL (e.g., https://your-app.onrender.com)
+                    </p>
+                </div>
+            </div>
+
+            <!-- Frontend Deployment -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                    2️⃣ Deploy Frontend
+                </h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Deploy the React frontend to Vercel:
+                </p>
+                
+                <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fabecoko%2Fpdf-splitter" 
+                   target="_blank"
+                   class="block w-full bg-black hover:bg-gray-800 text-white font-medium py-3 px-4 rounded-lg transition-colors text-center mb-4">
+                    Deploy to Vercel
+                </a>
+                
+                <div class="space-y-3">
+                    <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                        <p class="text-sm text-blue-800 dark:text-blue-200 font-medium mb-2">
+                            🔧 Configuration Required:
+                        </p>
+                        <ol class="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+                            <li>1. Go to your Vercel project settings</li>
+                            <li>2. Add environment variable:</li>
+                            <li class="font-mono bg-blue-100 dark:bg-blue-800 p-2 rounded">
+                                VITE_API_URL = https://your-backend-url.com
+                            </li>
+                            <li>3. Redeploy the project</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuration Guide -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                3️⃣ Configuration Guide
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">
+                        Backend Environment Variables
+                    </h3>
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 font-mono text-sm">
+                        <div class="space-y-1">
+                            <div>MAX_FILE_SIZE=136314880</div>
+                            <div>TIMEOUT_KEEP_ALIVE=180</div>
+                            <div>PYTHONUNBUFFERED=1</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">
+                        Frontend Environment Variables
+                    </h3>
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 font-mono text-sm">
+                        <div class="space-y-1">
+                            <div>VITE_API_URL=https://your-backend-url</div>
+                            <div>VITE_MAX_FILE_SIZE=130</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testing -->
+        <div class="bg-green-50 dark:bg-green-900/20 rounded-lg p-6">
+            <h2 class="text-2xl font-semibold text-green-900 dark:text-green-100 mb-4">
+                4️⃣ Test Your Deployment
+            </h2>
+            <ol class="space-y-2 text-green-800 dark:text-green-200">
+                <li class="flex items-start">
+                    <span class="font-medium mr-2">1.</span>
+                    Visit your frontend URL
+                </li>
+                <li class="flex items-start">
+                    <span class="font-medium mr-2">2.</span>
+                    Upload a PDF file (up to 130MB)
+                </li>
+                <li class="flex items-start">
+                    <span class="font-medium mr-2">3.</span>
+                    Enter page ranges (e.g., "1-5,8,10-12")
+                </li>
+                <li class="flex items-start">
+                    <span class="font-medium mr-2">4.</span>
+                    Click "Split & Download" and verify ZIP download
+                </li>
+            </ol>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="bg-red-50 dark:bg-red-900/20 rounded-lg p-6 mt-6">
+            <h3 class="text-lg font-semibold text-red-900 dark:text-red-100 mb-3">
+                🐛 Troubleshooting
+            </h3>
+            <ul class="space-y-2 text-red-800 dark:text-red-200 text-sm">
+                <li>• Backend not responding: Check your backend URL and health endpoint (/health)</li>
+                <li>• CORS errors: Verify your frontend domain is in backend CORS settings</li>
+                <li>• Upload fails: Check file size limits and network connectivity</li>
+                <li>• Build errors: Ensure all environment variables are set correctly</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <p class="text-gray-600 dark:text-gray-400">
+                Built with ❤️ using FastAPI, React, and TypeScript
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">
+                <a href="https://github.com/abecoko/pdf-splitter" target="_blank" class="hover:text-blue-500">
+                    View Source on GitHub
+                </a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

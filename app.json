@@ -1,0 +1,34 @@
+{
+  "name": "PDF Splitter Backend",
+  "description": "FastAPI backend for PDF splitting application",
+  "repository": "https://github.com/abecoko/pdf-splitter",
+  "logo": "https://raw.githubusercontent.com/abecoko/pdf-splitter/main/docs/logo.png",
+  "keywords": ["python", "fastapi", "pdf", "splitter", "backend"],
+  "success_url": "/health",
+  "env": {
+    "MAX_FILE_SIZE": {
+      "description": "Maximum file size in bytes (130MB)",
+      "value": "136314880"
+    },
+    "TIMEOUT_KEEP_ALIVE": {
+      "description": "Keep alive timeout in seconds",
+      "value": "180"
+    },
+    "PYTHONUNBUFFERED": {
+      "description": "Python unbuffered output",
+      "value": "1"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "stack": "heroku-22"
+}

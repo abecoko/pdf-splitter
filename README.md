@@ -40,21 +40,30 @@ open http://localhost:3000
 
 ### Deploy to Cloud
 
-#### Frontend (Vercel)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fabecoko%2Fpdf-splitter)
+#### 🚀 One-Click Deployment
 
-#### Backend (Railway/Render)
-1. **Railway**: Connect GitHub repo → Deploy from `/backend` folder
-2. **Render**: Use `render.yaml` configuration → Auto-deploy
+**Frontend + Backend (Recommended)**:
+1. **Backend**: [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/abecoko/pdf-splitter)
+2. **Frontend**: [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fabecoko%2Fpdf-splitter)
 
+**Alternative Platforms**:
+- **Railway**: [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/2fxKPE)
+- **Heroku**: [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/abecoko/pdf-splitter)
+
+#### 🔧 Manual Configuration
+
+After deploying backend, update frontend environment variable:
+1. Go to your Vercel project dashboard
+2. Settings → Environment Variables
+3. Add: `VITE_API_URL` = `https://your-backend-url.onrender.com`
+4. Redeploy frontend
+
+**Environment Variables for Backend**:
 ```bash
-# Set environment variables in your deployment platform:
-# MAX_FILE_SIZE=136314880
-# TIMEOUT_KEEP_ALIVE=180
-# PYTHONUNBUFFERED=1
-
-# Update frontend environment:
-# VITE_API_URL=https://your-backend-url.com
+MAX_FILE_SIZE=136314880
+TIMEOUT_KEEP_ALIVE=180
+PYTHONUNBUFFERED=1
+PORT=8000  # Set automatically by most platforms
 ```
 
 ### Manual Setup
