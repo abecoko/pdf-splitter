@@ -5,7 +5,10 @@
   "builds": [
     {
       "src": "backend/main.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
     }
   ],
   "routes": [
@@ -26,10 +29,5 @@
     "PYTHONPATH": "/var/task/backend",
     "MAX_FILE_SIZE": "136314880",
     "TIMEOUT_KEEP_ALIVE": "180"
-  },
-  "functions": {
-    "backend/main.py": {
-      "maxDuration": 300
-    }
   }
 }
