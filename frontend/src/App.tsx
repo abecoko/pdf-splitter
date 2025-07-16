@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Scissors, Download, Sun, Moon, Github, AlertCircle, CheckCircle, Loader2 } from 'lucide-react';
 import DropZone from './components/DropZone';
 import RangeInput from './components/RangeInput';

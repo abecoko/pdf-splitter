@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { HelpCircle, AlertCircle, CheckCircle, BookOpen } from 'lucide-react';
 import { parsePageRanges, getPageRangeExamples, formatPageRanges } from '../utils/parseRange';
 
