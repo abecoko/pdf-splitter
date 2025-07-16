@@ -20,7 +20,7 @@ A modern, user-friendly web application for splitting PDF files by extracting sp
 
 ### 🌐 Live Demo
 
-Try the application online: **[PDF Splitter on Vercel](https://pdf-splitter-ca3cufdsr-abecos-projects.vercel.app)**
+🚧 **Deploying...** Check back soon for the live demo!
 
 ### Using Docker (Recommended)
 
@@ -38,16 +38,23 @@ docker compose up -d
 open http://localhost:3000
 ```
 
-### Deploy to Vercel
+### Deploy to Cloud
 
+#### Frontend (Vercel)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fabecoko%2Fpdf-splitter)
 
-```bash
-# Install Vercel CLI
-npm i -g vercel
+#### Backend (Railway/Render)
+1. **Railway**: Connect GitHub repo → Deploy from `/backend` folder
+2. **Render**: Use `render.yaml` configuration → Auto-deploy
 
-# Deploy
-vercel --prod
+```bash
+# Set environment variables in your deployment platform:
+# MAX_FILE_SIZE=136314880
+# TIMEOUT_KEEP_ALIVE=180
+# PYTHONUNBUFFERED=1
+
+# Update frontend environment:
+# VITE_API_URL=https://your-backend-url.com
 ```
 
 ### Manual Setup

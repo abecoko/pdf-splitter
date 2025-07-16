@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: pdf-splitter-backend
+    env: python
+    region: oregon
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: 1
+      - key: MAX_FILE_SIZE  
+        value: 136314880
+      - key: TIMEOUT_KEEP_ALIVE
+        value: 180
