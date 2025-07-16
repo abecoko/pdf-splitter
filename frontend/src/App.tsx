@@ -137,20 +137,20 @@ export default function App() {
         setUploadProgress(null);
         const apiUrl = import.meta.env.VITE_API_URL || '/api';
         setError(`Network error occurred while uploading file. Please check:
-        1. Backend API is running at: ${apiUrl}
-        2. Internet connection is stable
-        3. File size is under 130MB
-        4. Try refreshing the page and testing connection again`);
+1. Backend API is running at: ${apiUrl}
+2. Internet connection is stable
+3. File size is under 130MB
+4. Try refreshing the page and testing connection again`);
         setIsProcessing(false);
       });
 
       xhr.addEventListener('timeout', () => {
         setUploadProgress(null);
-        setError('Upload timed out. This may be due to:
-        1. Large file size (try with smaller file)
-        2. Slow internet connection
-        3. Backend server timeout
-        Please try again with a smaller file or check your connection.');
+        setError(`Upload timed out. This may be due to:
+1. Large file size (try with smaller file)
+2. Slow internet connection
+3. Backend server timeout
+Please try again with a smaller file or check your connection.`);
         setIsProcessing(false);
       });
 
