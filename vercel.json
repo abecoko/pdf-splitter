@@ -1,14 +1,13 @@
 {
   "version": 2,
-  "name": "pdf-splitter",
   "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/dist",
-  "functions": {
-    "backend/main.py": {
-      "runtime": "@vercel/python",
-      "maxDuration": 300
+  "builds": [
+    {
+      "src": "backend/main.py",
+      "use": "@vercel/python"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -27,5 +26,10 @@
     "PYTHONPATH": "/var/task/backend",
     "MAX_FILE_SIZE": "136314880",
     "TIMEOUT_KEEP_ALIVE": "180"
+  },
+  "functions": {
+    "backend/main.py": {
+      "maxDuration": 300
+    }
   }
 }
