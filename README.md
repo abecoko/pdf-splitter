@@ -20,7 +20,9 @@ A modern, user-friendly web application for splitting PDF files by extracting sp
 
 ### 🌐 Live Demo
 
-🚀 **[Easy Deployment Guide](https://abecoko.github.io/pdf-splitter/deploy.html)** - Visual step-by-step deployment dashboard
+🚀 **[Try Live Demo](https://pdf-splitter-lnhlekqbp-abecos-projects.vercel.app)** - Fully functional PDF splitter (backend deployment required)
+
+📋 **[Easy Deployment Guide](https://abecoko.github.io/pdf-splitter/deploy.html)** - Visual step-by-step deployment dashboard
 
 ### Using Docker (Recommended)
 
