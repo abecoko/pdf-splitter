@@ -19,6 +19,8 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [totalPages, setTotalPages] = useState<number | undefined>(undefined);
   const [uploadProgress, setUploadProgress] = useState<UploadProgress | null>(null);
+  const [isConnecting, setIsConnecting] = useState(false);
+  const [connectionStatus, setConnectionStatus] = useState<'unknown' | 'connected' | 'disconnected'>('unknown');
 
   // Initialize dark mode from localStorage
   useEffect(() => {
@@ -59,7 +61,7 @@ export default function App() {
     setTotalPages(undefined);
   }, []);
 
-  const canSplit = selectedFile && pageRanges.trim() && parsePageRanges(pageRanges).isValid;
+  const canSplit = selectedFile && pageRanges.trim() && parsePageRanges(pageRanges).isValid && connectionStatus === 'connected';
 
   const handleSplit = useCallback(async () => {
     if (!selectedFile || !canSplit) return;
@@ -133,13 +135,22 @@ export default function App() {
       // Handle errors
       xhr.addEventListener('error', () => {
         setUploadProgress(null);
-        setError('Network error occurred while uploading file');
+        const apiUrl = import.meta.env.VITE_API_URL || '/api';
+        setError(`Network error occurred while uploading file. Please check:
+        1. Backend API is running at: ${apiUrl}
+        2. Internet connection is stable
+        3. File size is under 130MB
+        4. Try refreshing the page and testing connection again`);
         setIsProcessing(false);
       });
 
       xhr.addEventListener('timeout', () => {
         setUploadProgress(null);
-        setError('Upload timed out. Please try again.');
+        setError('Upload timed out. This may be due to:
+        1. Large file size (try with smaller file)
+        2. Slow internet connection
+        3. Backend server timeout
+        Please try again with a smaller file or check your connection.');
         setIsProcessing(false);
       });
 
@@ -161,6 +172,39 @@ export default function App() {
     setSuccess(null);
   }, []);
 
+  const testConnection = useCallback(async () => {
+    setIsConnecting(true);
+    setConnectionStatus('unknown');
+    
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || '/api';
+      const response = await fetch(`${apiUrl}/health`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+      
+      if (response.ok) {
+        setConnectionStatus('connected');
+        setSuccess('Backend connection successful!');
+      } else {
+        setConnectionStatus('disconnected');
+        setError(`Backend connection failed: ${response.status} ${response.statusText}`);
+      }
+    } catch (err) {
+      setConnectionStatus('disconnected');
+      setError(`Connection error: ${err instanceof Error ? err.message : 'Unknown error'}`);
+    } finally {
+      setIsConnecting(false);
+    }
+  }, []);
+
+  // Test connection on mount
+  useEffect(() => {
+    testConnection();
+  }, [testConnection]);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -172,6 +216,32 @@ export default function App() {
           </div>
           
           <div className="flex items-center space-x-4">
+            {/* Connection Status */}
+            <div className="flex items-center space-x-2">
+              <div className={`w-2 h-2 rounded-full ${
+                connectionStatus === 'connected' ? 'bg-green-500' :
+                connectionStatus === 'disconnected' ? 'bg-red-500' :
+                'bg-yellow-500'
+              }`} />
+              <span className={`text-sm ${
+                connectionStatus === 'connected' ? 'text-green-600 dark:text-green-400' :
+                connectionStatus === 'disconnected' ? 'text-red-600 dark:text-red-400' :
+                'text-yellow-600 dark:text-yellow-400'
+              }`}>
+                {connectionStatus === 'connected' ? 'API Connected' :
+                 connectionStatus === 'disconnected' ? 'API Disconnected' :
+                 'Connecting...'}
+              </span>
+              <button
+                onClick={testConnection}
+                disabled={isConnecting}
+                className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm underline disabled:opacity-50"
+                title="Test connection"
+              >
+                {isConnecting ? 'Testing...' : 'Test'}
+              </button>
+            </div>
+            
             <button
               onClick={toggleDarkMode}
               className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
@@ -181,7 +251,7 @@ export default function App() {
             </button>
             
             <a
-              href="https://github.com/your-username/pdf-splitter"
+              href="https://github.com/abecoko/pdf-splitter"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
@@ -256,6 +326,19 @@ export default function App() {
                   </>
                 )}
               </button>
+              
+              {connectionStatus === 'disconnected' && (
+                <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                  <p className="text-sm text-red-600 dark:text-red-400 mb-2">
+                    🔌 Backend API is not connected. Please:
+                  </p>
+                  <ol className="text-sm text-red-600 dark:text-red-400 space-y-1 ml-4">
+                    <li>1. Deploy the backend using the deployment guide</li>
+                    <li>2. Configure the frontend environment variable</li>
+                    <li>3. Click "Test" button to verify connection</li>
+                  </ol>
+                </div>
+              )}
 
               {/* Upload progress */}
               {uploadProgress && (
