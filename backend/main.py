@@ -22,20 +22,11 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# CORS middleware
+# CORS middleware - Allow all origins for now (can be restricted later)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000", 
-        "http://localhost:5173",  # Vite dev server
-        "https://pdf-splitter-6vd6nl7dv-abecos-projects.vercel.app",  # Vercel deployment
-        "https://pdf-splitter-dno84nfzy-abecos-projects.vercel.app",  # Vercel deployment
-        "https://pdf-splitter-6b6mvn87v-abecos-projects.vercel.app",  # Latest Vercel deployment
-        "https://*.vercel.app",  # All Vercel deployments
-        "https://pdf-splitter.vercel.app",  # Custom domain if set
-        "https://abecoko.github.io"  # GitHub Pages
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=False,  # Must be False when using wildcard origin
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
     expose_headers=["Content-Disposition"],
