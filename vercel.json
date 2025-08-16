@@ -2,20 +2,7 @@
   "version": 2,
   "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/dist",
-  "functions": {
-    "api/*.py": {
-      "runtime": "python@3.9"
-    }
-  },
   "routes": [
-    {
-      "src": "/api/health",
-      "dest": "/api/health.py"
-    },
-    {
-      "src": "/api/split",
-      "dest": "/api/split.py"
-    },
     {
       "src": "/assets/(.*)",
       "dest": "/assets/$1"
