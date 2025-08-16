@@ -122,11 +122,22 @@ export default function App() {
           setSuccess(`Successfully split PDF! Downloaded ${filename}`);
         } else {
           // Handle error response
+          console.log('Error status:', xhr.status);
+          console.log('Response text:', xhr.responseText);
           try {
             const errorResponse = JSON.parse(xhr.responseText);
-            setError(errorResponse.detail || 'Failed to split PDF');
+            console.log('Parsed error:', errorResponse);
+            if (errorResponse.detail) {
+              if (Array.isArray(errorResponse.detail)) {
+                setError(`Validation error: ${errorResponse.detail.map((d: any) => `${d.loc.join('.')}: ${d.msg}`).join(', ')}`);
+              } else {
+                setError(`Error: ${errorResponse.detail}`);
+              }
+            } else {
+              setError('Failed to split PDF');
+            }
           } catch {
-            setError(`Server error: ${xhr.status} ${xhr.statusText}`);
+            setError(`Server error: ${xhr.status} ${xhr.statusText || 'Unknown error'}`);
           }
         }
         setIsProcessing(false);

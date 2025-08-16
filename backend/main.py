@@ -63,7 +63,12 @@ async def health_check():
 @app.options("/split")
 async def split_options():
     """Handle preflight OPTIONS request for CORS"""
-    return {"message": "OK"}
+    from fastapi.responses import Response
+    response = Response()
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Accept, Authorization"
+    return response
 
 
 @app.post("/split", response_model=SplitResponse)
